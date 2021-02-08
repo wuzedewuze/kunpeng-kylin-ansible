@@ -12,7 +12,7 @@
   become_method: sudo   #切换用户身份的方式，有sudo、su、pbrun等方式，默认为sudo
   become_user: root   #切换指定的用户
   roles:
-#    - role: init-os/add-comp-repo 
+    - role: ../roles/init-os/add-offical-repo 
     - role: ../roles/init-os/base
 #    - role: init-os/mount-datadisk
 

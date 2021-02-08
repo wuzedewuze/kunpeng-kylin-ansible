@@ -1,0 +1,5 @@
+---
+- name: copy kylin_aarch64.repo 
+  copy: src=kylin_aarch64.repo dest=/etc/yum.repos.d/kylin_aarch64.repo
+
+

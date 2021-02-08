@@ -1,0 +1,7 @@
+###Kylin Linux Advanced Server 10 - os repo
+###
+[ks10-adv-os]
+name=Kylin Linux Advanced Server 10 - os 
+baseurl=http://archive.kylinos.cn/yum/v10/pks/aarch64/os/
+gpgcheck=0
+enable=1
