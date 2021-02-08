@@ -1,0 +1,18 @@
+---
+# 不许要root执行
+- hosts: all
+  gather_facts: False
+  roles:
+    - role: ../roles/init-os/copy-pub
+
+# 需要root权限执行
+- hosts: all
+  gather_facts: True 
+  become: yes  #是否允许身份切换
+  become_method: sudo   #切换用户身份的方式，有sudo、su、pbrun等方式，默认为sudo
+  become_user: root   #切换指定的用户
+  roles:
+#    - role: init-os/add-comp-repo 
+    - role: ../roles/init-os/base
+#    - role: init-os/mount-datadisk
+

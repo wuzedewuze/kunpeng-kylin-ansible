@@ -1,0 +1,21 @@
+---
+- command: hostname
+  register: gethostname
+
+- name:  hostnamectl  set-hostname  {{hostname|quote}} 
+  command: hostnamectl  set-hostname  {{hostname|quote}}
+  when: gethostname.stdout != hostname
+
+- name: SELINUX=disabled
+  selinux: state=disabled
+
+- name: set time-zone
+  timezone: name=Asia/Shanghai
+
+- name: stop firewalld
+  systemd: 
+    name=firewalld
+    state=stopped
+    enabled=no
+
+

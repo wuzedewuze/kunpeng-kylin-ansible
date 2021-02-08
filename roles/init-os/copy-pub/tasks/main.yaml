@@ -1,0 +1,5 @@
+---
+- name: ssh-copy
+  authorized_key:
+    user: developer
+    key: "{{ lookup('file','/root/.ssh/id_rsa.pub') }}"
