@@ -1,0 +1,17 @@
+- hosts: base_all 
+  user: root 
+  gather_facts: False
+  vars:
+    add_user: developer
+    chpass: ccitsysadmin
+  tasks:
+  - name: create user "{{ add_user }}"
+    user:
+      name: "{{ add_user }}" 
+      password: "{{ chpass | password_hash('sha512') }}" 
+
+  - name: add sudoer 
+    lineinfile:
+      dest: /etc/sudoers
+      line: "{{ add_user }} ALL = (root) PASSWD:ALL"
+
