@@ -1,0 +1,17 @@
+---
+# 需要root权限执行
+- hosts: zookeeper
+  gather_facts: True 
+  become: yes  #是否允许身份切换
+  become_method: sudo   #切换用户身份的方式，有sudo、su、pbrun等方式，默认为sudo
+  become_user: root   #切换指定的用户
+  roles:
+    - role: ../roles/zookeeper
+      #master_ip: 13.0.0.143
+      #zookeeper vars zoo.cfg
+      zoo_port1: 2888
+      zoo_port2: 3888
+      zoo_data_dir: /data/zookeeper/data
+      zoo_log_dir: /data/zookeeper/logs
+      zoo_listen_port: 2181
+      zookeeper_server_path: /usr/local

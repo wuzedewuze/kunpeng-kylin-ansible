@@ -1,0 +1,7 @@
+- hosts: all 
+  user: developer 
+  gather_facts: False
+  tasks:
+  - name: check ntp start
+    command: /usr/sbin/ntpq -p
+

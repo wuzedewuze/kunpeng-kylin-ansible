@@ -1,0 +1,24 @@
+---
+  - name: '如果没有分区才执行分区'
+    parted: device=/dev/vdb number=1 state=present
+    when: not ansible_devices.vdb.partitions
+    register: status
+
+  - name: 'Create a ext4 filesystem on /dev/vdb1'
+    filesystem:
+      fstype: ext4
+      dev: /dev/vdb1
+        
+  - name: '创建挂载目录'
+    file:
+      path: "/mnt/data"
+      state: directory
+      mode: 0777    
+        
+  - name: '挂载分区到/mnt/data'
+    mount:
+      path: /mnt/data
+      src: /dev/vdb1
+      fstype: ext4
+      state: mounted
+

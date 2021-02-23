@@ -1,12 +1,12 @@
 ---
 # 不许要root执行
-- hosts: all
+- hosts: base_all
   gather_facts: False
   roles:
     - role: ../roles/init-os/copy-pub
 
 # 需要root权限执行
-- hosts: all
+- hosts: base_all
   gather_facts: True 
   become: yes  #是否允许身份切换
   become_method: sudo   #切换用户身份的方式，有sudo、su、pbrun等方式，默认为sudo

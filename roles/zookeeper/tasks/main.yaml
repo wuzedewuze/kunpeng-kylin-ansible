@@ -1,0 +1,49 @@
+---
+- name: Check Idle port for zookeeper
+  shell: ss -ntl|grep -e {{ zoo_listen_port }} -e {{ zoo_port2 }}
+  ignore_errors: True
+  register: zoo_port
+
+- name: WARN for port check
+  debug:
+    msg: "WARNING：Port {{ zoo_listen_port }} or {{ zoo_port2 }}is not idle, Service zookeeper will not be deploy"
+  when: zoo_port is succeeded
+
+- name: Unzip zookeeper pkgs in all hosts
+  unarchive:
+    src: apache-zookeeper-3.5.8-bin.tar.gz 
+    dest: "{{ zookeeper_server_path }}" 
+    copy: yes
+    mode: 0755
+  when: zoo_port is failed
+
+- name: Create a data_dir
+  file:
+    path: "{{ zoo_data_dir }}"
+    state: directory
+    mode: 0755
+  #when: zoo_port is failed
+
+- name: Create a log_dir
+  file:
+    path: "{{ zoo_log_dir }}"
+    state: directory
+    mode: 0755
+  #when: zoo_port is failed
+
+
+
+- name: Config zookeeper myid
+  template:
+    src: myid.j2
+    dest: "{{ zoo_data_dir }}/myid"
+    mode: 0755
+  #when: zoo_port is failed
+
+- name: Config zookeeper service
+  template:
+    src: zoo.cfg.j2
+    dest: "{{ zookeeper_server_path }}/apache-zookeeper-3.5.8-bin/conf/zoo.cfg"
+    mode: 0755
+  notify: start zookeeper
+  #when: zoo_port is failed

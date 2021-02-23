@@ -1,0 +1,3 @@
+---
+- name: start zookeeper
+  shell: /bin/bash {{ zookeeper_server_path }}/apache-zookeeper-3.5.8-bin/bin/zkServer.sh restart

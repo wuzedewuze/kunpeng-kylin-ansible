@@ -1,0 +1,10 @@
+- hosts: all
+  user: developer 
+  gather_facts: False
+  become: yes  #是否允许身份切换
+  become_method: sudo   #切换用户身份的方式，有sudo、su、pbrun等方式，默认为sudo
+  become_user: root   #切换指定的用户
+
+  tasks:
+  - name: change password for developer
+    shell: echo 'sadf@231Wdakk92wn2021' |passwd --stdin developer

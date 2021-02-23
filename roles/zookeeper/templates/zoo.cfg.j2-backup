@@ -1,0 +1,10 @@
+tickTime=2000
+initLimit=10
+syncLimit=5
+dataDir={{ zoo_data_dir }}
+dataLogDir={{ zoo_log_dir }}
+clientPort={{ zoo_listen_port }}
+
+{% for host in groups['zookeeper'] %}
+server.{{ hostvars[host]['host_id'] }}={{ host }}:{{ zoo_port1 }}:{{ zoo_port2 }}
+{% endfor %}

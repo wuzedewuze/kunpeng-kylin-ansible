@@ -1,5 +1,7 @@
 ---
-- command: hostname
+
+- name: get current hostname
+  command: hostname
   register: gethostname
 
 - name:  hostnamectl  set-hostname  {{hostname|quote}} 
@@ -18,4 +20,8 @@
     state=stopped
     enabled=no
 
+- name: install pkg
+  yum: 
+    name: ['vim', 'rsync', 'lrzsz', 'nfs-utils', 'lsof'] 
+    state: present
 
